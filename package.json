@@ -1,7 +1,7 @@
 {
-  "name": "mern-base-app",
+  "name": "bakers-almanac",
   "version": "1.0.0",
-  "description": "Foundation Ready Mern App",
+  "description": "Full Stack App for Bakers Almanac",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",

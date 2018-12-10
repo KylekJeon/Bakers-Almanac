@@ -16,96 +16,210 @@
   #Recipes
   #Articles
 ==============================================================================*/
+
 /*============================================================================
  #Screen Size Variables &
  Dependency-free breakpoint mixin 
  // http://blog.grayghostvisuals.com/sass/sass-media-query-mixin/
 ==============================================================================*/
+$min: min-width;
+$max: max-width;
+
+@mixin at-query ($constraint, $viewport1, $viewport2:null) {
+  @if $constraint==$min {
+    @media screen and ($min: $viewport1) {
+      @content;
+    }
+  }
+
+  @else if $constraint==$max {
+    @media screen and ($max: $viewport1) {
+      @content;
+    }
+  }
+
+  @else {
+    @media screen and ($min: $viewport1) and ($max: $viewport2) {
+      @content;
+    }
+  }
+}
+
+$screen-xxs-min: 450px !default;
+$screen-xs-min: 544px !default;
+$screen-sm-min: 768px !default;
+$screen-md-min: 992px !default;
+$screen-lg-min: 1200px !default;
+$screen-xl-min: 1400px !default;
+$screen-xxl-min: 1600px !default;
+
+$screen-xxxs-max: ($screen-xxs-min - 1) !default;
+$screen-xxs-max: ($screen-xs-min - 1) !default;
+$screen-xs-max: ($screen-sm-min - 1) !default;
+$screen-sm-max: ($screen-md-min - 1) !default;
+$screen-md-max: ($screen-lg-min - 1) !default;
+$screen-lg-max: ($screen-xl-min - 1) !default;
+$screen-xl-max: ($screen-xxl-min - 1) !default;
+
 /*============================================================================
  #Font Families
 ==============================================================================*/
+$quicksand: 'Quicksand', sans-serif;
+$lato: 'Lato', sans-serif;
+
 /*============================================================================
  #Color Variables
 ==============================================================================*/
+$primaryBlue: #32CBEB;
+$secondaryBlue: #184D89;
+
+$pink: #EB48D5;
+$lightPink: #F377E2;
+$darkPink: #BA34A8;
+
+$violet: #B824EC;
+$lightViolet: #CC61F1;
+$darkViolet: #9208C3;
+
+$purple: #6730E8;
+$lightPurple: #8A60EB;
+$darkPurple: #5326Be;
+
+$navy: #3420D6;
+$lightNavy: #4E39FF;
+$darkNavy: #2B1BAC;
+
+$blue: #2977EA;
+$lightBlue: #60A0FF;
+$darkBlue: #1F5DB9;
+
+$teal: #12D78D;
+$lightTeal: #82DEBC;
+$darkTeal: #0EAF73;
+
+$green: #80C53A;
+$lightGreen: #A4DA6E;
+$darkGreen: #609D22;
+
+$lime: #D6E13B;
+$lightLime: #E6EE6F;
+$darkLime: #9FA816;
+
+$mustard: #EBCB2B;
+$lightMustard: #E7D36A;
+$darkMustard: #A48C13;
+
+$brown: #A47409;
+$lightBrown: #BA9D58;
+$darkBrown: #745102;
+
+$orange: #E87426;
+$lightOrange: #E98C4D;
+$darkOrange: #A95217;
+
+$red: #D50F0F;
+$lightRed: #DE4F4F;
+$darkRed: #9B1111;
+
+$bgGrey: #EEEEEE;
+$contentGrey: #CCCCCC;
+
+
 /*============================================================================
  ##Main Content
 ==============================================================================*/
+
 /*============================================================================
  #Reset
 ==============================================================================*/
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video, table, caption, tbody, tfoot, thead, tr, th, td {
-  border: 0;
-  font-family: inherit;
-  font-size: 100%;
-  font-style: inherit;
-  font-weight: inherit;
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  vertical-align: baseline; }
+ border: 0;
+ font-family: inherit;
+ font-size: 100%;
+ font-style: inherit;
+ font-weight: inherit;
+ margin: 0;
+ padding: 0;
+ outline: 0;
+ vertical-align: baseline;
+}
 
 html {
-  -webkit-tap-highlight-color: transparent; }
+ -webkit-tap-highlight-color: transparent;
+}
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, iframe {
-  display: block; }
+ display: block;
+}
 
 textarea, input {
   outline: none;
-  -webkit-appearance: none; }
+  -webkit-appearance: none;
+}
 
 ol, ul {
-  list-style: none; }
+ list-style: none;
+}
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 html, body {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  font-family: "Lato", sans-serif; }
+ display: block;
+ width: 100%;
+ height: 100%;
+ position: relative;
+ font-family: $lato;
+}
 
 .site-container {
-  width: 100%; }
+  width: 100%;
+}
 
 /*============================================================================
  #Presets
 ==============================================================================*/
 .site-footer {
   text-align: center;
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+}
+
 
 .header-one {
-  font-family: "Quicksand", sans-serif;
+  font-family: $quicksand;
   font-size: 50px;
   font-weight: bold;
-  color: #32CBEB;
-  text-align: center; }
+  color: $primaryBlue;
+  text-align: center;
+}
 
 .button {
   width: 150px;
   height: 30px;
-  border: 1px solid #EEEEEE;
+  border: 1px solid $bgGrey;
   border-radius: 10px;
   font-size: 16px;
   font-weight: bold;
-  color: #CCCCCC;
-  background-color: #EEEEEE;
-  cursor: pointer; }
+  color: $contentGrey;
+  background-color: $bgGrey;
+  cursor: pointer;
+}
 
 .button:hover {
   color: white;
-  border: 1px solid #32CBEB;
-  background-color: #32CBEB; }
+  border: 1px solid $primaryBlue;
+  background-color: $primaryBlue;
+}
 
 .button:active {
-  border: 1px solid #184D89;
-  background-color: #184D89; }
+  border: 1px solid $secondaryBlue;
+  background-color: $secondaryBlue;
+}
 
 .text-input-container {
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+}
 
 .text-input {
   width: 300px;
@@ -113,68 +227,90 @@ html, body {
   border-radius: 10px;
   height: 25px;
   padding: 5px;
-  font-size: 14px; }
+  font-size: 14px;
+}
+
 
 /*============================================================================
  #Navbar
 ==============================================================================*/
+
 #navbar-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 60px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  padding: 10px 7%; }
+  padding: 10px 7%;
+}
 
 #navbar {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 .nav-item-container {
-  display: flex; }
+  display: flex;
+}
 
 .nav-item {
-  margin-right: 30px; }
+  margin-right: 30px;
+}
 
 .nav-link.active {
-  color: #32CBEB; }
+  color: $primaryBlue;
+}
 
 .nav-link {
-  color: #CCCCCC;
+  color: $contentGrey;
   font-weight: bold;
-  font-family: "Quicksand", sans-serif; }
+  font-family: $quicksand;
+}
 
 /*============================================================================
  #Login
 ==============================================================================*/
+
 .login-container {
   padding: 50px 7%;
   min-height: calc(100vh - 80px);
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 .login-form {
   margin: 50px auto;
   width: 500px;
   padding: 15px;
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+}
 
 .login-button {
   display: block;
-  margin: 30px auto; }
+  margin: 30px auto;
+}
 
 /*============================================================================
  #Admin
 ==============================================================================*/
+
+
 /*============================================================================
  #About
 ==============================================================================*/
+
+
 /*============================================================================
  #Contact
 ==============================================================================*/
+
+
 /*============================================================================
  #Recipes
 ==============================================================================*/
+
+
 /*============================================================================
  #Articles
 ==============================================================================*/
+

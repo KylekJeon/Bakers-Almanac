@@ -7,18 +7,20 @@ import { clearCurrentProfile } from './actions/profileActions';
 import { Provider } from 'react-redux';
 import store from './store';
 
+// Layout
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import Landing from './components/layout/Landing';
 
-import Register from './components/auth/Register';
+// Pages
+import Landing from './components/landing/Landing';
+import About from './components/about/About';
+import Contact from './components/contact/Contact';
+import Articles from './components/articles/Articles';
+import Recipes from './components/recipes/Recipes';
+
+// Auth
 import Login from './components/auth/Login';
-import Dashboard from './components/dashboard/Dashboard';
-
-import PrivateRoute from './components/common/PrivateRoute';
-import CreateProfile from './components/create-profile/CreateProfile';
-import EditProfile from './components/edit-profile/EditProfile';
-import AddExperience from './components/add-credentials/AddExperience';
+import Admin from './components/admin/Admin';
 
 import './App.css';
 
@@ -50,16 +52,15 @@ class App extends Component {
         <BrowserRouter>
           <div className="App">
             <Navbar />
-            <Route exact path='/' component={ Landing } />
-            <div className="container">
-              <Route exact path='/register' component={ Register } />
+            <div className="site-container">
+              <Route exact path='/' component={ Landing } />
               <Route exact path='/login' component={ Login } />
-              {/* Redirection issue caused by matching all matching routes resolved by Switch for private routes */}
+              <Route exact path='/admin' component={ Admin } />
               <Switch>
-                <PrivateRoute exact path='/dashboard' component={ Dashboard } />
-                <PrivateRoute exact path='/create-profile' component={ CreateProfile } />
-                <PrivateRoute exact path='/edit-profile' component={ EditProfile } />
-                <PrivateRoute exact path='/add-experience' component={ AddExperience } />
+                <Route path="/about" component={ About } />
+                <Route path="/recipes" component={ Recipes } />
+                <Route path="/articles" component={ Articles } />
+                <Route path="/contact" component={ Contact } />
               </Switch>
             </div>
             <Footer />

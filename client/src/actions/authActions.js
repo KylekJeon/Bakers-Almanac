@@ -23,6 +23,7 @@ export const loginUser = (userData) => dispatch => {
     .then(res => {
       // Get token from response object
       const { token } = res.data
+      debugger
       // Set token to local storage
       localStorage.setItem('jwtToken', token);
       // Set token to Auth header
@@ -40,6 +41,13 @@ export const loginUser = (userData) => dispatch => {
     });
 };
 
+export const getUser = () => dispatch => {
+  axios.get('/api/users/current')
+    .then(res => {
+      debugger
+    })
+}
+
 // Set logged in user
 export const setCurrentUser = (decoded) => {
   return {
@@ -50,7 +58,6 @@ export const setCurrentUser = (decoded) => {
 
 // Log user out
 export const logoutUser = () => dispatch => {
-  debugger
   // Remove token from localStorage
   localStorage.removeItem('jwtToken');
   // Remove auth header for future requests

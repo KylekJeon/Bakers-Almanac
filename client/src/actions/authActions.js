@@ -41,13 +41,6 @@ export const loginUser = (userData) => dispatch => {
     });
 };
 
-export const getUser = () => dispatch => {
-  axios.get('/api/users/current')
-    .then(res => {
-      debugger
-    })
-}
-
 // Set logged in user
 export const setCurrentUser = (decoded) => {
   return {

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { logoutUser, getUser } from '../../actions/authActions';
+import { logoutUser, createRecipe } from '../../actions/index';
 
 class Admin extends Component {
   
@@ -58,7 +58,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLogoutUser: () => dispatch(logoutUser()),
-  onGetUser: () => dispatch(getUser())
+  onCreateRecipe: (recipeData) => dispatch(createRecipe(recipeData))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Admin));

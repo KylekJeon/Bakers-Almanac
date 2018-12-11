@@ -2,236 +2,76 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-// Post model
-const Recipe = require('../../models/Post');
+// Recipe model
+const Recipe = require('../../models/Recipe');
 
 // Validation
-const validatePostInput = require('../../validation/post');
+// const validatePostInput = require('../../validation/post');
 
-// @route   GET api/posts/test
+// @route   GET api/recipes/test
 // @desc    Tests post route
 // @access  Public
 router.get('/test', (req, res) => res.json({
-  msg: "Posts Works"
+  msg: "Recipe Works"
 }));
 
-// @route   GET api/posts
-// @desc    Get posts
+// @route   GET api/recipes
+// @desc    Get recipes
 // @access  Public
 router.get('/', (req, res) => {
-  Post.find()
-    .sort({
-      date: -1
-    })
-    .then(posts => res.json(posts))
-    .catch(err => res.status(404).json({
-      nopostsfound: 'No posts found'
-    }));
+    Recipe.find()
+    .sort({ date: -1 })
+    .then(recipes => res.json(recipes))
+    .catch(err => res.status(404).json({ norecipefound: 'No recipes found' }));
 });
-
-// @route   GET api/posts/:post_id
-// @desc    Get post by id
+// @route   GET api/recipes/:recipe_id
+// @desc    Get recipe by id
 // @access  Public
-router.get('/:post_id', (req, res) => {
-  Post.findById(req.params.post_id)
-    .then(post => res.json(post))
+router.get('/:recipe_id', (req, res) => {
+  Recipe.findById(req.params.recipe_id)
+    .then(recipe => res.json(recipe))
     .catch(err => res.status(404).json({
-      nopostfound: 'No post found with that ID'
+      norecipefound: 'No recipe found with that ID'
     }));
 });
 
-// @route   POST api/posts
-// @desc    Create post
+// @route   POST api/recipes
+// @desc    Create recipe
 // @access  Private
-router.post('/', passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  const {
-    errors,
-    isValid
-  } = validatePostInput(req.body);
+router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+    // const { errors, isValid } = validatePostInput(req.body);
 
-  // Check validation
-  if (!isValid) {
-    // If any errors, send 400 with errors object
-    return res.status(400).json(errors);
-  }
+    // Add Validation
 
-  const newPost = new Post({
-    text: req.body.text,
-    name: req.body.name,
-    avatar: req.body.avatar,
-    user: req.user.id
-  });
+    const newRecipe = new Recipe({
+      user: req.user.id,
+      title: req.body.title,
+      mainImage: req.body.mainImage,
+      calloutText: req.body.calloutText,
+      prepTime: req.body.prepTime,
+      totalTime: req.body.totalTime,
+      servesText: req.body.servesText,
+      ingredients: req.body.ingredients,
+      serveWith: req.body.serveWith,
+      instructions: req.body.instructions,
+      notes: req.body.notes,
+      videoURL: req.body.videoURL,
+    });
 
-  newPost.save().then(post => res.json(post));
+    newRecipe.save().then(recipe => res.json(recipe));
 });
 
-// @route   DELETE api/posts/:post_id
-// @desc    Delete post
+// @route   DELETE api/recipes/:recipe_id
+// @desc    Delete recipe
 // @access  Private
-router.delete('/:post_id', passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  Profile.findOne({
-      user: req.user.id
-    })
-    .then(profile => {
-      Post.findById(req.params.post_id)
-        .then(post => {
-          // Check for post owner
-          if (post.user.toString() !== req.user.id) {
-            return res.status(401).json({
-              notauthorized: 'User not authorized'
-            });
-          }
+router.delete('/:recipe_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Recipe.findById(req.params.recipe_id)
+  .then(recipe => {
 
-          // Delete
-          post.remove().then(() => res.json({
-            success: true
-          }));
-        })
-        .catch(err => res.status(404).json({
-          postnotfound: 'No post found'
-        }));
-    })
+      // Delete
+      recipe.remove().then(() => res.json({ success: true }));
+  })
+  .catch(err => res.status(404).json({ recipenotfound: 'No recipe found' }));
 });
-
-// @route   Post api/posts/like/:post_id
-// @desc    Like post
-// @access  Private
-router.post('/like/:post_id', passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  Profile.findOne({
-      user: req.user.id
-    })
-    .then(profile => {
-      Post.findById(req.params.post_id)
-        .then(post => {
-          if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-            res.status(400).json({
-              alreadyliked: 'User already liked this post'
-            });
-          }
-
-          // Add user id to likes array
-          post.likes.unshift({
-            user: req.user.id
-          });
-
-          post.save().then(post => res.json(post));
-        })
-        .catch(err => res.status(404).json({
-          postnotfound: 'No post found'
-        }));
-    })
-});
-
-// @route   Post api/posts/unlike/:post_id
-// @desc    Unlike post
-// @access  Private
-router.post('/unlike/:post_id', passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  Profile.findOne({
-      user: req.user.id
-    })
-    .then(profile => {
-      Post.findById(req.params.post_id)
-        .then(post => {
-          if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
-            res.status(400).json({
-              notliked: 'You have not yet liked this post'
-            });
-          }
-
-          // Get remove index
-          const removeIndex = post.likes
-            .map(item => item.user.toString())
-            .indexOf(req.user.id);
-
-          // Splice out of array
-          post.likes.splice(removeIndex, 1);
-
-          post.save().then(post => res.json(post));
-        })
-        .catch(err => res.status(404).json({
-          postnotfound: 'No post found'
-        }));
-    })
-});
-
-// @route   Post api/posts/comment/:post_id
-// @desc    Add comment to ;lst 
-// @access  Private
-router.post('/comment/:post_id', passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  Post.findById(req.params.post_id)
-    .then(post => {
-      const {
-        errors,
-        isValid
-      } = validatePostInput(req.body);
-
-      // Check validation
-      if (!isValid) {
-        // If any errors, send 400 with errors object
-        return res.status(400).json(errors);
-      }
-
-      const newComment = {
-        text: req.body.text,
-        name: req.body.name,
-        avatar: req.body.avatar,
-        user: req.user.id
-      }
-
-      // Add to comments array
-      post.comments.unshift(newComment);
-
-      // Save
-      post.save().then(post => res.json(post));
-    })
-    .catch(err => res.status(404).json({
-      postnotfound: 'No post found'
-    }));
-});
-
-// @route   DELETE api/posts/comment/:post_id/:comment_id
-// @desc    Remove comment from post
-// @access  Private
-router.delete('/comment/:post_id/:comment_id', passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  Post.findById(req.params.post_id)
-    .then(post => {
-      // Check to see if comment exists
-      if (post.comments.filter(comment => comment._id.toString() === req.params.comment_id).length === 0) {
-        return res.status(404).json({
-          commentnotexists: 'Comment does not exist'
-        });
-      }
-
-      // Get remove index
-      const removeIndex = post.comments
-        .map(item => item._id.toString())
-        .indexOf(req.params.comment_id);
-
-      // Splice comment out of array
-      post.comments.splice(removeIndex, 1);
-
-      // Save
-      post.save().then(post => res.json(post));
-    })
-    .catch(err => res.status(404).json({
-      postnotfound: 'No post found'
-    }));
-});
-
-// @route   POST api/posts
-// @desc    Create post
-// @access  Private
 
 module.exports = router;

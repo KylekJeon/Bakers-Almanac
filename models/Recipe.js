@@ -12,6 +12,8 @@ const RecipeSchema = new Schema({
     required: true
   },
   mainImage: String,
+  topParagraph: String,
+  bottomParagraph: String,
   calloutText: String,
   prepTime: String,
   totalTime: String,
@@ -20,7 +22,9 @@ const RecipeSchema = new Schema({
   serveWith: [String],
   instructions: [String],
   notes: [String],
-  videoURL: String
+  videoURL: String,
+  published: Boolean,
+  publishedDate: Date
 })
 
 module.exports = Recipe = mongoose.model('recipe', RecipeSchema);

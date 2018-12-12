@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_RECIPE, FETCH_RECIPES, GET_ERRORS } from './types';
+import { FETCH_RECIPE, FETCH_RECIPES, GET_ERRORS, CLEAR_ERRORS } from './types';
 
 // Get all recipes
 export const fetchRecipes = () => dispatch => {

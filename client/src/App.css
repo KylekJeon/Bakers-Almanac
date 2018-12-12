@@ -68,11 +68,68 @@ html, body {
   font-family: "Lato", sans-serif; }
 
 .site-container {
-  width: 100%; }
+  width: 100%;
+  min-height: 100vh; }
 
 /*============================================================================
- #Presets
+  #Presets
+
+  Table of Contents
+    Margins
+    Flex Styling
+    Footer
+    Headers
+    Buttons
+    Inputs
+
 ==============================================================================*/
+.mar-top-xs {
+  margin-top: 8px; }
+
+.mar-top-sm {
+  margin-top: 16px; }
+
+.mar-top-md {
+  margin-top: 24px; }
+
+.mar-top-lg {
+  margin-top: 32px; }
+
+.mar-top-xl {
+  margin-top: 40px; }
+
+.mar-bot-xs {
+  margin-bottom: 8px; }
+
+.mar-bot-sm {
+  margin-bottom: 16px; }
+
+.mar-bot-md {
+  margin-bottom: 24px; }
+
+.mar-bot-lg {
+  margin-bottom: 32px; }
+
+.mar-bot-xl {
+  margin-bottom: 40px; }
+
+.flex-column-center {
+  display: flex;
+  justify-content: center;
+  flex-direction: column; }
+
+.flex-row-center {
+  display: flex;
+  justify-content: center; }
+
+.flex-row-space-between {
+  display: flex;
+  justify-content: space-between; }
+
+.flex-row-space-evenly {
+  display: flex;
+  justify-content: space-evenly; }
+
 .site-footer {
   text-align: center;
   padding-bottom: 10px; }
@@ -80,6 +137,13 @@ html, body {
 .header-one {
   font-family: "Quicksand", sans-serif;
   font-size: 50px;
+  font-weight: bold;
+  color: #32CBEB;
+  text-align: center; }
+
+.header-two {
+  font-family: "Quicksand", sans-serif;
+  font-size: 30px;
   font-weight: bold;
   color: #32CBEB;
   text-align: center; }
@@ -114,6 +178,9 @@ html, body {
   height: 25px;
   padding: 5px;
   font-size: 14px; }
+
+.text-input.invalid {
+  border: 2px solid red; }
 
 /*============================================================================
  #Navbar
@@ -166,6 +233,49 @@ html, body {
 /*============================================================================
  #Admin
 ==============================================================================*/
+.admin-container {
+  position: relative;
+  width: 100%; }
+
+.admin-logout {
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.admin-nav {
+  width: 100%;
+  height: 100px; }
+
+.admin-nav-list-item {
+  color: #E87426;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer; }
+
+.admin-nav-list-item.selected {
+  text-decoration: underline; }
+
+.create-recipe-container {
+  width: 100%;
+  padding: 0 10%;
+  box-sizing: border-box; }
+
+.create-recipe-content-container {
+  width: 100%; }
+
+.create-recipe-form {
+  width: 45%;
+  border: 1px solid black;
+  padding: 10px;
+  box-sizing: border-box; }
+
+.create-recipe-input-container {
+  width: 45%;
+  border: 1px solid black; }
+
+.create-recipe-input {
+  width: 80%; }
+
 /*============================================================================
  #About
 ==============================================================================*/

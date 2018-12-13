@@ -23,17 +23,17 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-  }
+  // componentWillMount() {
+  //   if (this.props.auth.isAuthenticated) {
+  //     this.props.history.push('/dashboard');
+  //   }
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if(nextProps.errors) {
+  //     this.setState({ errors: nextProps.errors });
+  //   }
+  // }
 
   onChange(e) {
     this.setState({[e.target.name]: e.target.value});
@@ -62,7 +62,7 @@ class Register extends Component {
             <div className="row">
               <div className="col-md-8 m-auto">
                 <h1 className="display-4 text-center">Sign Up</h1>
-                <p className="lead text-center">Create your DevConnector account</p>
+                <p className="lead text-center">Create your Baker's Almanac account</p>
                 <form noValidate onSubmit={this.onSubmit}>
                   <TextFieldGroup
                     placeholder="Name"

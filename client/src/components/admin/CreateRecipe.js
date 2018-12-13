@@ -49,6 +49,33 @@ export default class CreateRecipe extends Component {
     )
   }
 
+  generateAddItemOptions = () => {
+    const items = ["Ingredients", "Serve With", "Instructions", "Notes"]
+    const list = items.map((item, idx) => {
+      return (
+        <li
+          className="add-item-nav-item"
+          key={idx}
+          onClick={() => this.switchInputMode(idx)}
+        >
+          {item}
+        </li>
+      )
+    });
+
+    return (
+      <ul className="add-item-nav-container">
+        {list}
+      </ul>
+    )
+  }
+
+  switchInputMode = (idx) => {
+    this.setState({
+      inputMode: idx
+    })
+  }
+
   render() {
               
 
@@ -56,6 +83,8 @@ export default class CreateRecipe extends Component {
     const serveWithList = this.generateList("serveWith");
     const instructionsList = this.generateList("instructions");
     const notes = this.generateList("notes");
+
+    const addContentNavBar = this.generateAddItemOptions();
 
     return (
       <div className="create-recipe-container">
@@ -65,11 +94,12 @@ export default class CreateRecipe extends Component {
             className="create-recipe-form"
             onSubmit={this.onSubmit}
           >
+            <h3 className="header-three recipe-content-header">Recipe Content</h3>
             <TextFieldGroup
               placeholder="Title"
               name="title"
               klassName="create-recipe-input"
-              containerKlassName = "create-recipe-input-container"
+              containerKlassName="create-recipe-input-container"
               value={this.state.title}
               onChange={this.onChange}
               // error={errors.title}
@@ -78,6 +108,7 @@ export default class CreateRecipe extends Component {
               placeholder="Main Image URL"
               name="mainImage"
               klassName="create-recipe-input"
+              containerKlassName="create-recipe-input-container"
               value={this.state.mainImage}
               onChange={this.onChange}
               // error={errors.mainImage}
@@ -86,7 +117,7 @@ export default class CreateRecipe extends Component {
               placeholder="Top Paragraph"
               name="topParagraph"
               klassName="create-recipe-area-input"
-              containerKlassName = "create-recipe-area-input-container"
+              containerKlassName="create-recipe-area-input-container"
               value={this.state.topParagraph}
               onChange={this.onChange}
               // // error={errors.description}
@@ -95,6 +126,7 @@ export default class CreateRecipe extends Component {
               placeholder="Callout Text"
               name="calloutText"
               klassName="create-recipe-input"
+              containerKlassName="create-recipe-input-container"
               value={this.state.calloutText}
               onChange={this.onChange}
               // // error={errors.calloutText}
@@ -103,6 +135,7 @@ export default class CreateRecipe extends Component {
               placeholder="Prep Time"
               name="prepTime"
               klassName="create-recipe-input"
+              containerKlassName="create-recipe-input-container"
               value={this.state.prepTime}
               onChange={this.onChange}
               // // error={errors.prepTime}
@@ -111,6 +144,7 @@ export default class CreateRecipe extends Component {
               placeholder="Total Time"
               name="totalTime"
               klassName="create-recipe-input"
+              containerKlassName="create-recipe-input-container"
               value={this.state.totalTime}
               onChange={this.onChange}
               // // error={errors.totalTime}
@@ -131,11 +165,12 @@ export default class CreateRecipe extends Component {
             <input
               type="submit"
               value="Submit"
-              className="button"
+              className="button create-recipe-button"
             />
           </form>
-          <div className="create-recipe-input-container">
-
+          <div className="create-recipe-list-generator">
+            <h3 className="header-three recipe-content-header">Add List Items</h3>
+            {addContentNavBar}
           </div>
         </div>
       </div>

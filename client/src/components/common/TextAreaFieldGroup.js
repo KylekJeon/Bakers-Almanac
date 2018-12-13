@@ -1,5 +1,5 @@
 import React from 'react'
-import classNames from 'classNames';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 const TextAreaFieldGroup = ({
@@ -9,13 +9,19 @@ const TextAreaFieldGroup = ({
   error,
   info,
   onChange,
-  klassName
+  klassName,
+  containerKlassName
 }) => {
   return (
-    <div className="text-area-input-container">
+    <div className={
+      classNames('text-area-input-container', {
+        'invalid': error,
+        [containerKlassName]: containerKlassName
+      })
+    }>
       <textarea 
         className={
-          classnames('text-area-input', {
+          classNames('text-area-input', {
             'invalid': error,
             [klassName]: klassName
           })

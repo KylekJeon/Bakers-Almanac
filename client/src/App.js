@@ -21,6 +21,7 @@ import Recipes from './components/recipes/Recipes';
 // Auth
 import Login from './components/auth/Login';
 import Admin from './components/admin/Admin';
+import Register from './components/auth/Register';
 
 import './App.css';
 
@@ -61,6 +62,7 @@ class App extends Component {
                 <Route path="/recipes" component={ Recipes } />
                 <Route path="/articles" component={ Articles } />
                 <Route path="/contact" component={ Contact } />
+                <Route path="/register" component={ Register } />
               </Switch>
             </div>
             <Footer />

@@ -24,42 +24,42 @@ router.get('/test', (req, res) => res.json({
 // @route   POST api/users/register
 // @desc    Register User
 // @access  Public
-// router.post('/register', (req, res) => {
-//     const { errors, isValid } = validateRegisterInput(req.body);
+router.post('/register', (req, res) => {
+    const { errors, isValid } = validateRegisterInput(req.body);
 
-//     // Check Validation
-//     if(!isValid) {
-//         return res.status(400).json(errors);
-//     }
+    // Check Validation
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
 
-//     // User.findOne is coming from the user model, findOne is a mongoDB/mongoose method
-//     User.findOne({ email: req.body.email })
-//         .then(user => {
-//             if(user) {
-//                 // Overwriting / using the error object that is given back from validateRegisterInput error object.
-//                 errors.email = 'Email already exists';
-//                 return res.status(400).json(errors);
-//             } else {
-//                 const newUser = new User({
-//                     name: req.body.name,
-//                     email: req.body.email,
-//                     password: req.body.password
-//                 });
+    // User.findOne is coming from the user model, findOne is a mongoDB/mongoose method
+    User.findOne({ email: req.body.email })
+        .then(user => {
+            if(user) {
+                // Overwriting / using the error object that is given back from validateRegisterInput error object.
+                errors.email = 'Email already exists';
+                return res.status(400).json(errors);
+            } else {
+                const newUser = new User({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: req.body.password
+                });
             
-//                 bcrypt.genSalt(10, (err, salt) => {
-//                     bcrypt.hash(newUser.password, salt, (err, hash) => {
-//                         if(err) throw err;
-//                         newUser.password = hash;
-//                         newUser.save()
-//                             .then(user => res.json(user))
-//                             .catch(err => console.log(err));
-//                     })
-//                 })
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if(err) throw err;
+                        newUser.password = hash;
+                        newUser.save()
+                            .then(user => res.json(user))
+                            .catch(err => console.log(err));
+                    })
+                })
 
-//             }
-//         })
+            }
+        })
 
-// });
+});
 
 // @route   POST api/users/login
 // @desc    Login User / Return JWT Token

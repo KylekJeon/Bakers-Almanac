@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
 
-export default class CreateRecipe extends Component {
+import { createRecipe } from '../../actions/index';
+
+class CreateRecipe extends Component {
 
   constructor(props){
     super(props);
 
     this.state = {
       inputMode: 0,
+      selectedList: "ingredients",
+      itemList: ["Ingredients", "Serve With", "Instructions", "Notes"],
       title: "",
       mainImage: "",
       topParagraph: "",
@@ -23,8 +28,7 @@ export default class CreateRecipe extends Component {
       notes: [],
       videoURL: "",
       bottomParagraph: "",
-      published: false,
-      publishedDate: null,
+      itemPlaceholder: ""
     }
   }
 
@@ -32,14 +36,44 @@ export default class CreateRecipe extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  generateList = (listName) => {
-    const list = this.state[listName].map((item, idx) => {
+  generateAddItemOptions = () => {
+    const list = this.state.itemList.map((item, idx) => {
       return (
         <li
+          className={`add-item-nav-item ${this.state.inputMode === idx ? "selected" : ""}`}
+          key={idx}
+          onClick={() => this.switchInputMode(idx)}
+        >
+          {item}
+        </li>
+      )
+    });
+
+    return (
+      <ul className="flex-row-space-between add-item-nav-container">
+        {list}
+      </ul>
+    )
+  }
+
+  switchInputMode = (idx) => {
+    const selectedList = this.convertItemName(this.state.itemList[idx]);
+
+    this.setState({
+      inputMode: idx,
+      selectedList
+    })
+  }
+
+  generateList = (listName) => {
+    const list = this.state[this.state.selectedList].map((item, idx) => {
+      return (
+        <li 
           className="recipe-list-item"
           key={idx}
+          onClick={() => this.removeListItem(idx)}
         >
-          &#8226; {item}
+          {idx + 1}. {item}
         </li>
       )
     });
@@ -51,42 +85,53 @@ export default class CreateRecipe extends Component {
     )
   }
 
-  generateAddItemOptions = () => {
-    const items = ["Ingredients", "Serve With", "Instructions", "Notes"]
-    const list = items.map((item, idx) => {
-      return (
-        <li
-          className="add-item-nav-item"
-          key={idx}
-          onClick={() => this.switchInputMode(idx)}
-        >
-          {item}
-        </li>
-      )
-    });
+  addListItem = () => {
+    const newItemArray = this.state.itemPlaceholder.replace(/, ?/g, ',').split(",");
+    const updatedList = this.state[this.state.selectedList].concat(newItemArray);
 
-    return (
-      <ul className="add-item-nav-container">
-        {list}
-      </ul>
-    )
-  }
-
-  switchInputMode = (idx) => {
     this.setState({
-      inputMode: idx
+      [this.state.selectedList]: updatedList,
+      itemPlaceholder: ""
     })
   }
 
+  removeListItem = (idx) => {
+    const updatedList = this.state[this.state.selectedList]
+    updatedList.splice(idx, 1);
+
+    this.setState({
+      [this.state.selectedList]: updatedList
+    })
+  }
+
+  convertItemName = (name) => {
+    return name.charAt(0).toLowerCase() + name.replace(/ /g, '').substring(1, name.length);
+  }
+
+  submitRecipe = () => {
+    const recipeData = {
+      title: this.state.title,
+      mainImage: this.state.mainImage,
+      topParagraph: this.state.topParagraph,
+      bottomParagraph: this.state.bottomParagraph,
+      calloutText: this.state.calloutText,
+      prepTime: this.state.prepTime,
+      totalTime: this.state.totalTime,
+      servesText: this.state.servesText,
+      ingredients: this.state.ingredients,
+      serveWith: this.state.serveWith,
+      instructions: this.state.instructions,
+      notes: this.state.notes,
+      videoURL: this.state.videoURL
+    }
+
+    this.props.onCreateRecipe(recipeData);
+  }
+  
+
   render() {
-              
-
-    const ingredientsList = this.generateList("ingredients");
-    const serveWithList = this.generateList("serveWith");
-    const instructionsList = this.generateList("instructions");
-    const notes = this.generateList("notes");
-
     const addContentNavBar = this.generateAddItemOptions();
+    const listContent = this.generateList(this.state.itemList[this.state.inputMode]);
 
     return (
       <div className="create-recipe-container">
@@ -151,6 +196,15 @@ export default class CreateRecipe extends Component {
               onChange={this.onChange}
               // // error={errors.totalTime}
             />
+            <TextFieldGroup
+              placeholder="Serves"
+              name="servesText"
+              klassName="create-recipe-input"
+              containerKlassName="create-recipe-input-container"
+              value={this.state.servesText}
+              onChange={this.onChange}
+              // // error={errors.totalTime}
+            />
             <TextAreaFieldGroup
               placeholder="Bottom Paragraph"
               name="bottomParagraph"
@@ -160,22 +214,48 @@ export default class CreateRecipe extends Component {
               onChange={this.onChange}
               // // error={errors.description}
             />
-            {ingredientsList}
-            {serveWithList}
-            {instructionsList}
-            {notes}
             <input
               type="submit"
               value="Submit"
               className="button create-recipe-button"
+              onClick={this.submitRecipe}
             />
           </form>
           <div className="create-recipe-list-generator">
             <h3 className="header-three recipe-content-header">Add List Items</h3>
             {addContentNavBar}
+            <div className="list-generator-container">
+              <TextAreaFieldGroup
+                placeholder="Add Item"
+                name="itemPlaceholder"
+                klassName="recipe-add-item-area-input"
+                containerKlassName="recipe-add-item-area-input-container"
+                value={this.state.itemPlaceholder}
+                onChange={this.onChange}
+                // // error={errors.description}
+              />
+              <button
+                className="button recipe-add-item-button"
+                onClick={this.addListItem}
+              >
+                Add Item
+              </button>
+              <div className="recipe-list-section">
+                <h4 className="header-four">
+                  {this.state.itemList[this.state.inputMode]}
+                </h4>
+                {listContent}
+              </div>
+            </div>
           </div>
         </div>
       </div>
     )
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  onCreateRecipe: (recipeData) => dispatch(createRecipe(recipeData))
+})
+
+export default connect(null, mapDispatchToProps)(CreateRecipe);

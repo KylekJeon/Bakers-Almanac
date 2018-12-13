@@ -40,6 +40,7 @@ export const fetchSelectedRecipe = (id) => dispatch => {
 
 export const createRecipe = recipeData => dispatch => {
   dispatch(clearErrors());
+  debugger
   axios
     .post('/api/recipes', recipeData)
     .then(res =>

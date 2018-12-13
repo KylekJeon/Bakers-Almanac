@@ -156,6 +156,13 @@ html, body {
   color: #0051B2;
   text-align: center; }
 
+.header-four {
+  font-family: "Quicksand", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0051B2;
+  text-align: center; }
+
 .button {
   width: 150px;
   height: 30px;
@@ -319,6 +326,51 @@ html, body {
   border: 1px solid black;
   padding: 10px;
   box-sizing: border-box; }
+
+.add-item-nav-container {
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box; }
+
+.add-item-nav-item {
+  background-color: #EEEEEE;
+  padding: 10px;
+  border-radius: 10px;
+  color: #CCCCCC;
+  cursor: pointer; }
+
+.add-item-nav-item.selected {
+  background-color: #FFA90C;
+  color: #0051B2; }
+
+.recipe-add-item-area-input-container {
+  margin-top: 30px; }
+
+.recipe-add-item-area-input {
+  display: block;
+  margin: 0 auto;
+  height: 50px; }
+
+.recipe-add-item-button {
+  display: block;
+  margin: 20px auto; }
+
+.recipe-list-section {
+  border-top: 1px solid black;
+  padding-top: 20px;
+  height: 350px; }
+
+.recipe-list-container {
+  width: 100%;
+  padding: 20px 20px 10px;
+  box-sizing: border-box;
+  height: 315px;
+  overflow: hidden;
+  overflow-y: scroll; }
+
+.recipe-list-item {
+  margin-bottom: 15px;
+  cursor: pointer; }
 
 /*============================================================================
  #About

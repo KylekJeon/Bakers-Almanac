@@ -39,6 +39,7 @@ router.get('/:recipe_id', (req, res) => {
 // @desc    Create recipe
 // @access  Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+    debugger
     // const { errors, isValid } = validatePostInput(req.body);
 
     // Add Validation

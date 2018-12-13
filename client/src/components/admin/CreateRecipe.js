@@ -10,18 +10,20 @@ export default class CreateRecipe extends Component {
 
     this.state = {
       inputMode: 0,
-      title: null,
-      mainImage: null,
-      calloutText: null,
-      prepTime: null,
-      totalTime: null,
-      servesText: null,
+      title: "",
+      mainImage: "",
+      topParagraph: "",
+      calloutText: "",
+      prepTime: "",
+      totalTime: "",
+      servesText: "",
       ingredients: [],
       serveWith: [],
       instructions: [],
       notes: [],
-      videoURL: null,
-      published: null,
+      videoURL: "",
+      bottomParagraph: "",
+      published: false,
       publishedDate: null,
     }
   }

@@ -4,15 +4,20 @@ import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
 
-import { createRecipe } from '../../actions/index';
+import selectedRecipe from '../recipes/SelectedRecipe';
 
-class CreateRecipe extends Component {
+import { createRecipe, updateRecipe } from '../../actions/index';
+import SelectedRecipe from '../recipes/SelectedRecipe';
+
+class InputRecipe extends Component {
 
   constructor(props){
     super(props);
 
     this.state = {
+      submitMode: 'create',
       inputMode: 0,
+      previewMode: false,
       selectedList: "ingredients",
       itemList: ["Ingredients", "Serve With", "Instructions", "Notes"],
       title: "",
@@ -29,6 +34,24 @@ class CreateRecipe extends Component {
       videoURL: "",
       bottomParagraph: "",
       itemPlaceholder: ""
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.selectedRecipe) {
+      const selectedRecipe = this.props.selectedRecipe;
+      const updatedState = {};
+
+      for(var key in selectedRecipe) {
+        if(!key.includes("_")){
+          updatedState[key] = selectedRecipe[key]
+        }
+      }
+
+      this.setState({
+        ...updatedState,
+        submitMode: "edit"
+      })
     }
   }
 
@@ -108,7 +131,11 @@ class CreateRecipe extends Component {
     return name.charAt(0).toLowerCase() + name.replace(/ /g, '').substring(1, name.length);
   }
 
-  submitRecipe = () => {
+  returnToList = () => {
+    this.props.returnToList();
+  }
+
+  generateRecipeData = () => {
     const recipeData = {
       title: this.state.title,
       mainImage: this.state.mainImage,
@@ -124,18 +151,55 @@ class CreateRecipe extends Component {
       notes: this.state.notes,
       videoURL: this.state.videoURL
     }
-
-    this.props.onCreateRecipe(recipeData);
+    
+    return recipeData;
   }
-  
+
+  submitRecipe = () => {
+    const recipeData = this.generateRecipeData();
+    
+    if(this.state.submitMode === "create"){
+      this.props.onCreateRecipe(recipeData);
+    } else {
+      this.state.onUpdateRecipe(recipeData);
+    }
+  }
+
+  togglePreview = () => {
+    this.setState(prevState => ({
+      previewMode: !prevState.previewMode
+    }))
+  }
 
   render() {
     const addContentNavBar = this.generateAddItemOptions();
     const listContent = this.generateList(this.state.itemList[this.state.inputMode]);
+    let returnButton = null;
+    let pageHeader = "Create a new Recipe";
 
-    return (
+    if(this.props.selectedRecipe){
+      returnButton = (
+        <button
+          className="button return-to-recipe-list-button"
+          onClick={this.returnToList}
+        >
+          Return to List
+        </button>
+      )
+
+      pageHeader = "Edit Recipe";
+    }
+
+    let pageContent = (
       <div className="create-recipe-container">
-        <h2 className="header-two">Create a new Recipe</h2>
+        <h2 className="header-two">{pageHeader}</h2>
+        {returnButton}
+        <button
+          className="button preview-recipe-button"
+          onClick={this.togglePreview}
+        >
+          Preview
+        </button>
         <div className="flex-row-space-between mar-top-lg create-recipe-content-container">
           <form 
             className="create-recipe-form"
@@ -205,6 +269,15 @@ class CreateRecipe extends Component {
               onChange={this.onChange}
               // // error={errors.totalTime}
             />
+            <TextFieldGroup
+              placeholder="Video URL"
+              name="videoURL"
+              klassName="create-recipe-input"
+              containerKlassName="create-recipe-input-container"
+              value={this.state.videoURL}
+              onChange={this.onChange}
+              // // error={errors.totalTime}
+            />
             <TextAreaFieldGroup
               placeholder="Bottom Paragraph"
               name="bottomParagraph"
@@ -216,7 +289,7 @@ class CreateRecipe extends Component {
             />
             <input
               type="submit"
-              value="Submit"
+              value={this.state.submitMode === "create" ? "Submit" : "Edit"}
               className="button create-recipe-button"
               onClick={this.submitRecipe}
             />
@@ -251,11 +324,27 @@ class CreateRecipe extends Component {
         </div>
       </div>
     )
+
+    if(this.state.previewMode){
+      pageContent = (
+        <SelectedRecipe 
+          selectedRecipe={this.generateRecipeData} 
+          togglePreview={this.togglePreview.bind(this)}
+        />
+      )
+    }
+
+    return (
+      <div className="">
+        {pageContent}
+      </div>
+    )
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  onCreateRecipe: (recipeData) => dispatch(createRecipe(recipeData))
+  onCreateRecipe: (recipeData) => dispatch(createRecipe(recipeData)),
+  onUpdateRecipe: (recipeData) => dispatch(updateRecipe(recipeData))
 })
 
-export default connect(null, mapDispatchToProps)(CreateRecipe);
+export default connect(null, mapDispatchToProps)(InputRecipe);

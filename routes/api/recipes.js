@@ -39,7 +39,6 @@ router.get('/:recipe_id', (req, res) => {
 // @desc    Create recipe
 // @access  Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-    debugger
     // const { errors, isValid } = validatePostInput(req.body);
 
     // Add Validation
@@ -57,6 +56,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
       instructions: req.body.instructions,
       notes: req.body.notes,
       videoURL: req.body.videoURL,
+      topParagraph: req.body.topParagraph,
+      bottomParagraph: req.body.bottomParagraph
     });
 
     newRecipe.save().then(recipe => res.json(recipe));

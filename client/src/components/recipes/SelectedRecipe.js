@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class EditRecipe extends Component {
+export default class SelectedRecipe extends Component {
   render() {
     return (
       <div>
-        Edit Recipe Page
+        Selected Recipe Page
       </div>
     )
   }

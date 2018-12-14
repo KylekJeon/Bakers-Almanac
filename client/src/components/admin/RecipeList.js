@@ -5,15 +5,18 @@ import { updateRecipe, fetchRecipes } from '../../actions/index';
 import checkmark from '../../img/checkmark.png';
 import xmark from '../../img/x-mark.png';
 
-import EditRecipe from './EditRecipe';
+import InputRecipe from './InputRecipe';
 
 class RecipeList extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      listView: true
+      listView: true,
+      selectedRecipe: null
     }
+
+    this.editChosenRecipe = this.editChosenRecipe.bind(this);
   }
   
   componentDidMount(){
@@ -64,7 +67,18 @@ class RecipeList extends Component {
   }
 
   editChosenRecipe = (idx) => {
+    const selectedRecipe = this.props.recipes[idx];
 
+    this.setState({
+      listView: false,
+      selectedRecipe
+    })
+  }
+
+  returnToList = () => {
+    this.setState({
+      listView: true
+    })
   }
 
   toggleRecipePublish = (idx) => {
@@ -88,7 +102,10 @@ class RecipeList extends Component {
         </div>
       )
     } else {
-      pageContent = <EditRecipe />
+      pageContent = <InputRecipe 
+                      selectedRecipe={this.state.selectedRecipe}
+                      returnToList={this.returnToList.bind(this)} 
+                    />
     }
 
     return (
@@ -104,7 +121,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onUpdateRecipe: (recipeData) => dispatch(updateRecipe(recipeData)),
   onFetchRecipes: () => dispatch(fetchRecipes())
 })
 

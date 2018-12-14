@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import AdminDashboard from './AdminDashboard';
-import CreateRecipe from './CreateRecipe';
+import InputRecipe from './InputRecipe';
 import CreateArticle from './CreateArticle';
 import RecipeList from './RecipeList';
 import ArticleList from './ArticleList';
@@ -80,7 +80,7 @@ class Admin extends Component {
         pageContent = <AdminDashboard />
         break;
       case 1:
-        pageContent = <CreateRecipe />
+        pageContent = <InputRecipe />
         break;
       case 2:
         pageContent = <CreateArticle />

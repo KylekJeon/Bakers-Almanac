@@ -9,7 +9,7 @@ import CreateArticle from './CreateArticle';
 import RecipeList from './RecipeList';
 import ArticleList from './ArticleList';
 
-import { logoutUser, createRecipe } from '../../actions/index';
+import { logoutUser, createRecipe, fetchRecipes } from '../../actions/index';
 
 class Admin extends Component {
 
@@ -24,7 +24,7 @@ class Admin extends Component {
         "Recipe List",
         "Article List"
       ],
-      pageIndex: 1
+      pageIndex: 3
     }
   }
   
@@ -120,12 +120,14 @@ Admin.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  recipes: state.recipe.recipes
 })
 
 const mapDispatchToProps = dispatch => ({
   onLogoutUser: () => dispatch(logoutUser()),
-  onCreateRecipe: (recipeData) => dispatch(createRecipe(recipeData))
+  onCreateRecipe: (recipeData) => dispatch(createRecipe(recipeData)),
+  onFetchRecipes: () => dispatch(fetchRecipes())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Admin));

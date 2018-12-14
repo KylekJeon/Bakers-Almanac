@@ -23,7 +23,10 @@ const RecipeSchema = new Schema({
   instructions: [String],
   notes: [String],
   videoURL: String,
-  published: Boolean,
+  published: {
+    type: Boolean,
+    default: false
+  },
   publishedDate: Date
 })
 

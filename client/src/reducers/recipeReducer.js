@@ -1,7 +1,7 @@
 import { FETCH_RECIPES, FETCH_RECIPE } from '../actions/types';
 
 const initialState = {
-  recipes: null,
+  recipes: [],
   selectedRecipe: null
 }
 

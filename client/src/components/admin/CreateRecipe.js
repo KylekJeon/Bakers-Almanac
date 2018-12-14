@@ -86,7 +86,7 @@ class CreateRecipe extends Component {
   }
 
   addListItem = () => {
-    const newItemArray = this.state.itemPlaceholder.replace(/, ?/g, ',').split(",");
+    const newItemArray = this.state.itemPlaceholder.split("\n");
     const updatedList = this.state[this.state.selectedList].concat(newItemArray);
 
     this.setState({

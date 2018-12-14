@@ -118,6 +118,11 @@ html, body {
   justify-content: center;
   flex-direction: column; }
 
+.flex-column-space-between {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column; }
+
 .flex-row-center {
   display: flex;
   justify-content: center; }
@@ -207,6 +212,10 @@ html, body {
   height: 100px;
   padding: 5px;
   font-size: 14px; }
+
+.checkmark-img {
+  width: 10px;
+  height: 10px; }
 
 /*============================================================================
  #Navbar
@@ -371,6 +380,33 @@ html, body {
 .recipe-list-item {
   margin-bottom: 15px;
   cursor: pointer; }
+
+.recipe-list-page-container {
+  width: 100%;
+  padding-top: 30px; }
+
+.recipe-list-content-container {
+  max-width: 1200px;
+  margin: 0 auto; }
+
+.recipe-list-page-list {
+  margin-top: 50px; }
+
+.recipe-list-page-item {
+  border: 1px solid black;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 20px; }
+
+.recipe-list-page-item-published {
+  margin-left: 20px; }
+
+.recipe-list-page-button:first-of-type {
+  margin-right: 20px; }
+
+.recipe-list-page-checkmark {
+  margin-left: 10px; }
 
 /*============================================================================
  #About

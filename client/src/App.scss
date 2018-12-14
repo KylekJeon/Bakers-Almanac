@@ -241,6 +241,12 @@ html, body {
   flex-direction: column;
 }
 
+.flex-column-space-between {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 .flex-row-center {
   display: flex;
   justify-content: center
@@ -355,6 +361,12 @@ html, body {
 }
 
 
+// Other
+.checkmark-img {
+  width: 10px;
+  height: 10px;
+}
+
 /*============================================================================
  #Navbar
 ==============================================================================*/
@@ -444,7 +456,7 @@ html, body {
   text-decoration: underline;
 }
 
-// Create Recipe
+// Create Recipe Page
 .create-recipe-container {
   width: 100%;
   padding: 0 10%;
@@ -554,6 +566,53 @@ html, body {
   margin-bottom: 15px;
   cursor: pointer;
 }
+
+// Recipe List Page
+.recipe-list-page-container {
+  width: 100%;
+  padding-top: 30px;
+}
+
+.recipe-list-content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.recipe-list-page-list {
+  margin-top: 50px;
+}
+
+.recipe-list-page-item {
+  border: 1px solid black;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.recipe-list-page-item-title { 
+
+}
+
+.recipe-list-page-item-published {
+  margin-left: 20px;
+}
+
+.recipe-list-page-button:first-of-type {
+  margin-right: 20px;
+}
+
+.recipe-list-page-checkmark {
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
 /*============================================================================
  #About
 ==============================================================================*/

@@ -83,7 +83,7 @@ class Admin extends Component {
         pageContent = <InputRecipe />
         break;
       case 2:
-        pageContent = <CreateArticle />
+        pageContent = <InputARticle />
         break;
       case 3:
         pageContent = <RecipeList />

@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
 
-import selectedRecipe from '../recipes/SelectedRecipe';
-
 import { createRecipe, updateRecipe } from '../../actions/index';
-import SelectedRecipe from '../recipes/SelectedRecipe';
+
+import RecipeShowPage from '../recipes/RecipeShowPage';
 
 class InputRecipe extends Component {
 
@@ -327,8 +326,8 @@ class InputRecipe extends Component {
 
     if(this.state.previewMode){
       pageContent = (
-        <SelectedRecipe 
-          selectedRecipe={this.generateRecipeData} 
+        <RecipeShowPage 
+          selectedRecipe={this.generateRecipeData()} 
           togglePreview={this.togglePreview.bind(this)}
         />
       )

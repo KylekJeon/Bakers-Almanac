@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 import AdminDashboard from './AdminDashboard';
 import InputRecipe from './InputRecipe';
-import CreateArticle from './CreateArticle';
 import RecipeList from './RecipeList';
 import ArticleList from './ArticleList';
+import InputArticle from './InputArticle'
 
 import { logoutUser, createRecipe, fetchRecipes } from '../../actions/index';
 
@@ -24,7 +24,7 @@ class Admin extends Component {
         "Recipe List",
         "Article List"
       ],
-      pageIndex: 3
+      pageIndex: 2
     }
   }
   
@@ -83,7 +83,7 @@ class Admin extends Component {
         pageContent = <InputRecipe />
         break;
       case 2:
-        pageContent = <InputARticle />
+        pageContent = <InputArticle />
         break;
       case 3:
         pageContent = <RecipeList />

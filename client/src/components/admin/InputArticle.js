@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
 
+import ArticleShowPage from '../articles/ArticleShowPage'
+
 import { createArticle, updateArticle } from '../../actions/index';
 
 class InputArticle extends Component {
@@ -13,8 +15,16 @@ class InputArticle extends Component {
 
     this.state = {
       submitMode: 'create',
-      previewMode: false
+      previewMode: false,
+      title: "",
+      date: null,
+      contentPlaceholder: "",
+      contentType: ["header", "image", "paragraph"],
+      inputMode: 0,
+      content: []
     }
+
+    this.addContent = this.addContent.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +47,34 @@ class InputArticle extends Component {
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  generateContentOptions = () => {
+    const list = this.state.contentType.map((item, idx) => {
+      return (
+        <li
+          className={`add-item-nav-item ${this.state.inputMode === idx ? "selected" : ""}`}
+          key={idx}
+          onClick={() => this.switchInputMode(idx)}
+        >
+          {item}
+        </li>
+      )
+    });
+
+    return (
+      <ul className="flex-row-space-between add-item-nav-container">
+        {list}
+      </ul>
+    )
+  }
+
+  switchInputMode = (idx) => {
+    this.setState({ inputMode: idx });
+  }
+
+  addContent = () => {
+    debugger
   }
 
   generateArticleData = () => {
@@ -66,9 +104,11 @@ class InputArticle extends Component {
     }))
   }
 
+  
+
   render() {
-    const addContentNavBar = this.generateAddItemOptions();
-    const listContent = this.generateList(this.state.itemList[this.state.inputMode]);
+    const addContentNavBar = this.generateContentOptions();
+    const listContent = this.state.content;
     let returnButton = null;
     let pageHeader = "Write a new Article";
 
@@ -86,8 +126,55 @@ class InputArticle extends Component {
     }
 
     let pageContent = (
-      <div className="create-recipe-container">
+      <div className="create-article-container">
         <h2 className="header-two">{pageHeader}</h2>
+        <div className="create-article-content-container">
+          <div className="create-article-form">
+            <h3 className="header-three mar-top-sm mar-bot-md">Article Content</h3>
+            <TextFieldGroup
+              placeholder="Title"
+              name="title"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
+              value={this.state.title}
+              onChange={this.onChange}
+              // error={errors.title}
+            />
+            <TextFieldGroup
+              placeholder="Date"
+              name="date"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
+              value={this.state.title}
+              onChange={this.onChange}
+              // error={errors.title}
+            />
+          </div>
+          <div className="create-article-list-generator">
+            <h3 className="header-three mar-top-sm mar-bot-md">Add Content</h3>
+            {addContentNavBar}
+            <div className="list-generator-container">
+              <TextAreaFieldGroup
+                placeholder="Add Item"
+                name="contentPlaceholder"
+                klassName="admin-add-item-area-input"
+                containerKlassName="admin-add-item-area-input-container"
+                value={this.state.contentsPlaceholder}
+                onChange={this.onChange}
+                // // error={errors.description}
+              />
+              <button
+                className="button admin-add-item-button"
+                onClick={this.addContent}
+              >
+                Add Item
+              </button>
+              <div className="admin-list-section">
+                {listContent}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
 
@@ -101,7 +188,7 @@ class InputArticle extends Component {
     }
 
     return (
-      <div className="">
+      <div className="create-article-page-container">
         {pageContent}
       </div>
     )

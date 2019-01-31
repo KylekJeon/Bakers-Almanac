@@ -15,3 +15,12 @@ export const GET_PROFILES = 'GET_PROFILES';
 // Recipes
 export const FETCH_RECIPES = "FETCH_RECIPES";
 export const FETCH_RECIPE = "FETCH_RECIPE";
+
+// Articles
+export const CREATE_ARTICLE = "CREATE_ARTICLE";
+export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
+export const FETCH_ARTICLES = "FETCH_ARTICLES";
+export const FETCH_ARTICLE = "FETCH_ARTICLE";
+
+
+

@@ -204,12 +204,12 @@ class InputRecipe extends Component {
             className="create-recipe-form"
             onSubmit={this.onSubmit}
           >
-            <h3 className="header-three recipe-content-header">Recipe Content</h3>
+            <h3 className="header-three mar-top-sm mar-bot-md">Recipe Content</h3>
             <TextFieldGroup
               placeholder="Title"
               name="title"
-              klassName="create-recipe-input"
-              containerKlassName="create-recipe-input-container"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
               value={this.state.title}
               onChange={this.onChange}
               // error={errors.title}
@@ -217,8 +217,8 @@ class InputRecipe extends Component {
             <TextFieldGroup
               placeholder="Main Image URL"
               name="mainImage"
-              klassName="create-recipe-input"
-              containerKlassName="create-recipe-input-container"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
               value={this.state.mainImage}
               onChange={this.onChange}
               // error={errors.mainImage}
@@ -226,8 +226,8 @@ class InputRecipe extends Component {
             <TextAreaFieldGroup
               placeholder="Top Paragraph"
               name="topParagraph"
-              klassName="create-recipe-area-input"
-              containerKlassName="create-recipe-area-input-container"
+              klassName="admin-page-area-input"
+              containerKlassName="admin-page-area-input-container"
               value={this.state.topParagraph}
               onChange={this.onChange}
               // // error={errors.description}
@@ -235,8 +235,8 @@ class InputRecipe extends Component {
             <TextFieldGroup
               placeholder="Callout Text"
               name="calloutText"
-              klassName="create-recipe-input"
-              containerKlassName="create-recipe-input-container"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
               value={this.state.calloutText}
               onChange={this.onChange}
               // // error={errors.calloutText}
@@ -244,8 +244,8 @@ class InputRecipe extends Component {
             <TextFieldGroup
               placeholder="Prep Time"
               name="prepTime"
-              klassName="create-recipe-input"
-              containerKlassName="create-recipe-input-container"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
               value={this.state.prepTime}
               onChange={this.onChange}
               // // error={errors.prepTime}
@@ -253,8 +253,8 @@ class InputRecipe extends Component {
             <TextFieldGroup
               placeholder="Total Time"
               name="totalTime"
-              klassName="create-recipe-input"
-              containerKlassName="create-recipe-input-container"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
               value={this.state.totalTime}
               onChange={this.onChange}
               // // error={errors.totalTime}
@@ -262,8 +262,8 @@ class InputRecipe extends Component {
             <TextFieldGroup
               placeholder="Serves"
               name="servesText"
-              klassName="create-recipe-input"
-              containerKlassName="create-recipe-input-container"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
               value={this.state.servesText}
               onChange={this.onChange}
               // // error={errors.totalTime}
@@ -271,8 +271,8 @@ class InputRecipe extends Component {
             <TextFieldGroup
               placeholder="Video URL"
               name="videoURL"
-              klassName="create-recipe-input"
-              containerKlassName="create-recipe-input-container"
+              klassName="admin-page-input"
+              containerKlassName="admin-page-input-container"
               value={this.state.videoURL}
               onChange={this.onChange}
               // // error={errors.totalTime}
@@ -280,8 +280,8 @@ class InputRecipe extends Component {
             <TextAreaFieldGroup
               placeholder="Bottom Paragraph"
               name="bottomParagraph"
-              klassName="create-recipe-area-input"
-              containerKlassName="create-recipe-area-input-container"
+              klassName="admin-page-area-input"
+              containerKlassName="admin-page-area-input-container"
               value={this.state.bottomParagraph}
               onChange={this.onChange}
               // // error={errors.description}
@@ -300,19 +300,19 @@ class InputRecipe extends Component {
               <TextAreaFieldGroup
                 placeholder="Add Item"
                 name="itemPlaceholder"
-                klassName="recipe-add-item-area-input"
-                containerKlassName="recipe-add-item-area-input-container"
+                klassName="admin-add-item-area-input"
+                containerKlassName="admin-add-item-area-input-container"
                 value={this.state.itemPlaceholder}
                 onChange={this.onChange}
                 // // error={errors.description}
               />
               <button
-                className="button recipe-add-item-button"
+                className="button admin-add-item-button"
                 onClick={this.addListItem}
               >
                 Add Item
               </button>
-              <div className="recipe-list-section">
+              <div className="admin-list-section">
                 <h4 className="header-four">
                   {this.state.itemList[this.state.inputMode]}
                 </h4>
